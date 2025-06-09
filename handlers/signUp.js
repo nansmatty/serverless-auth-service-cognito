@@ -41,7 +41,7 @@ exports.signUp = async (event) => {
 
 		return {
 			statusCode: 200,
-			body: JSON.stringify({ msg: 'User successfully signed up!' }),
+			body: JSON.stringify({ msg: 'Account created! Please verify your email' }),
 		};
 	} catch (error) {
 		return {
