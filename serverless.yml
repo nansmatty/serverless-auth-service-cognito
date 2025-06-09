@@ -29,3 +29,9 @@ functions:
       - httpApi:
           path: /signin
           method: post
+  signout:
+    handler: handlers/signOut.signOut
+    events:
+      - httpApi:
+          path: /signout
+          method: post
