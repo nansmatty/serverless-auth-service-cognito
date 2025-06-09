@@ -1,0 +1,31 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: practicetest123
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: authService
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: ap-south-1
+  environment:
+    CLIENT_ID: ${ssm:/CLIENT_ID} #securely fetch from parameters store or aws system manager
+
+functions:
+  signup:
+    handler: handlers/signUp.signUp
+    events:
+      - httpApi:
+          path: /signup
+          method: post
+  confirm-signup:
+    handler: handlers/confirmSignUp.confirmSignUp
+    events:
+      - httpApi:
+          path: /confirm-signup
+          method: post
+  signin:
+    handler: handlers/signIn.signIn
+    events:
+      - httpApi:
+          path: /signin
+          method: post
