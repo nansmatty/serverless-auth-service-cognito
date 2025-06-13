@@ -1,4 +1,5 @@
 const { CognitoIdentityProviderClient, SignUpCommand } = require('@aws-sdk/client-cognito-identity-provider');
+const UserModel = require('../models/UserModel');
 
 // Initialized Cognito Client With Specified AWS Region
 
@@ -38,6 +39,10 @@ exports.signUp = async (event) => {
 	try {
 		const command = new SignUpCommand(params);
 		await client.send(command);
+
+		// Create a new user instance and save it to DynamoDB
+		const user = new UserModel(email, fullName);
+		await user.save();
 
 		return {
 			statusCode: 200,

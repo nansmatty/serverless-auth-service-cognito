@@ -9,13 +9,14 @@ provider:
   region: ap-southeast-1
   environment:
     CLIENT_ID: ${ssm:/CLIENT_ID} #securely fetch from parameters store or aws system manager
+    TABLE_NAME: Users
 
 resources:
   Resources:
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: Users
+        TableName: process.env.TABLE_NAME
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: userId
