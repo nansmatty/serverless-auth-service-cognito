@@ -10,13 +10,19 @@ provider:
   environment:
     CLIENT_ID: ${ssm:/CLIENT_ID} #securely fetch from parameters store or aws system manager
     TABLE_NAME: Users
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource:
+        - arn:aws:dynamodb:ap-southeast-1:338175291532:table/Users
 
 resources:
   Resources:
     UsersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: process.env.TABLE_NAME
+        TableName: Users
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
           - AttributeName: userId
