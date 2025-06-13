@@ -10,6 +10,20 @@ provider:
   environment:
     CLIENT_ID: ${ssm:/CLIENT_ID} #securely fetch from parameters store or aws system manager
 
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Users
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+
 functions:
   signup:
     handler: handlers/signUp.signUp
